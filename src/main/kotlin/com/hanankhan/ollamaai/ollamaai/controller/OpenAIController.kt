@@ -55,7 +55,8 @@ class OpenAIController(
                           "frustrations": [
                             "<realistic frustration or pain point relevant to the scenario/problem statement>",
                             "..."
-                          ]
+                          ],
+                          "backgroundColor": <hexacode color like 0xFFD3E36B. It MUST be only a vibrant flat color!>
                         }
                         ```
                         Important instructions for persona generation:
@@ -96,7 +97,8 @@ class OpenAIController(
             "Empfindet komplizierte Benutzeroberflächen als abschreckend und ist schnell frustriert, wenn etwas nicht funktioniert.",  
             "Befürchtet, dass sie bei technischen Problemen keine schnelle Hilfe bekommt.",  
             "Ist unsicher, ob das Portal auch für ältere oder weniger technikaffine Menschen geeignet ist."  
-          ]  
+          ],
+          "backgroundColor": "0xFFD3E36B" 
         }  
     """.trimIndent()
 
