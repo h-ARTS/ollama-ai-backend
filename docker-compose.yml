@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  persona-lab:
+    image: persona-lab:latest
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      API_KEY: ${API_KEY}
+    restart: unless-stopped
