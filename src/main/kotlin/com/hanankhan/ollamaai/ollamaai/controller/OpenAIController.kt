@@ -56,7 +56,7 @@ class OpenAIController(
                             "<realistic frustration or pain point relevant to the scenario/problem statement>",
                             "..."
                           ],
-                          "backgroundColor": <hexacode color like #FFD3E36B. It MUST be only a vibrant flat color!>
+                          "backgroundColor": <hexacode color like #FFD3E36B. It MUST be only a vibrant flat color from any color range!>
                         }
                         ```
                         Important instructions for persona generation:
