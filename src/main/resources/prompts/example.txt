@@ -1,0 +1,5 @@
+Ein regionales Krankenhaus führt ein digitales Gesundheitsportal ein.
+Über dieses Portal sollen Patient:innen künftig ihre Arzttermine online verwalten, medizinische Unterlagen einsehen und mit dem medizinischen Personal kommunizieren können.
+Die Nutzung ist sowohl von zuhause als auch mobil möglich. Ziel ist es, Abläufe zu vereinfachen und die Patientenzufriedenheit zu erhöhen.
+Dabei ist zu berücksichtigen, dass Patient:innen sehr unterschiedliche technische Vorkenntnisse, Lebenssituationen und gesundheitliche Bedürfnisse mitbringen.
+Auch Themen wie Datenschutz, Barrierefreiheit und Vertrauen in digitale Angebote spielen eine zentrale Rolle.

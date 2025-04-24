@@ -1,0 +1,25 @@
+{  
+  "firstname": "Anna",
+  "lastname": "Müller",
+  "age": 52,
+  "profession": "Grundschullehrerin",
+  "message": "Ich finde es spannend, dass ich meine Arzttermine und Unterlagen jetzt online verwalten kann, aber ich mache mir Sorgen, ob das alles sicher ist und wie einfach es für mich zu bedienen sein wird.",
+  "behaviours": [
+    "Prüft neue digitale Angebote zunächst skeptisch, insbesondere bezüglich Datenschutz.",
+    "Nutzt digitale Geräte wie Laptop und Smartphone regelmäßig, aber bevorzugt einfache und intuitive Anwendungen.",
+    "Fragt bei Unsicherheiten oft ihre Kinder oder jüngere Kolleg:innen um Hilfe.",
+    "Nutzt digitale Angebote vor allem von zuhause aus, da sie mobiles Surfen unterwegs als unpraktisch empfindet."
+  ],
+  "goals": [
+    "Möchte Arzttermine flexibel verwalten können, ohne lange in der Warteschleife einer Praxis zu hängen.",
+    "Wünscht sich eine zentrale und übersichtliche Möglichkeit, ihre medizinischen Unterlagen einzusehen.",
+    "Hofft, durch das Portal die Kommunikation mit Ärzt:innen zu erleichtern und schneller Antworten zu erhalten."
+  ],
+  "frustrations": [
+    "Hat Sorge, dass ihre persönlichen medizinischen Daten nicht ausreichend geschützt sind.",
+    "Empfindet komplizierte Benutzeroberflächen als abschreckend und ist schnell frustriert, wenn etwas nicht funktioniert.",
+    "Befürchtet, dass sie bei technischen Problemen keine schnelle Hilfe bekommt.",
+    "Ist unsicher, ob das Portal auch für ältere oder weniger technikaffine Menschen geeignet ist."
+  ],
+  "backgroundColor": "#FFD3E36B"
+}
