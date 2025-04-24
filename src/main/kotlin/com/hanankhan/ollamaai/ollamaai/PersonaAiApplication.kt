@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class OllamaAiApplication
+class PersonaAiApplication
 
 fun main(args: Array<String>) {
-    runApplication<OllamaAiApplication>(*args)
+    runApplication<PersonaAiApplication>(*args)
 }
