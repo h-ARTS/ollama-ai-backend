@@ -1,12 +1,24 @@
 package com.hanankhan.ollamaai.ollamaai.controller
 
 import com.azure.ai.openai.OpenAIClient
-import com.azure.ai.openai.models.*
+import com.azure.ai.openai.models.ChatCompletionsOptions
+import com.azure.ai.openai.models.ChatMessageContentItem
+import com.azure.ai.openai.models.ChatMessageImageContentItem
+import com.azure.ai.openai.models.ChatMessageImageUrl
+import com.azure.ai.openai.models.ChatMessageTextContentItem
+import com.azure.ai.openai.models.ChatRequestAssistantMessage
+import com.azure.ai.openai.models.ChatRequestMessage
+import com.azure.ai.openai.models.ChatRequestSystemMessage
+import com.azure.ai.openai.models.ChatRequestUserMessage
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestPart
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
@@ -19,7 +31,7 @@ class OpenAIController(
     private val personaInstructions: String,
     private val exampleText: String,
     private val exampleImage: String,
-    private val sampleAnswer: String
+    private val sampleAnswer: String,
 ) {
     @PostMapping("/chat")
     fun generate(@RequestParam text: String, @RequestParam("temp") temperature: Double = .7): ResponseEntity<String> {
@@ -27,7 +39,7 @@ class OpenAIController(
             ChatRequestSystemMessage(personaInstructions),
             ChatRequestUserMessage(exampleText),
             ChatRequestAssistantMessage(sampleAnswer),
-            ChatRequestUserMessage(text)
+            ChatRequestUserMessage(text),
         )
 
         return responseEntityWithChatCompletion(prompts, temperature)
@@ -35,17 +47,21 @@ class OpenAIController(
 
     @PostMapping(path = ["/vision"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun generateWithImage(
-        @RequestPart("image") image: MultipartFile,
-        @RequestParam("temp") temperature: Double = .7
+        @RequestPart images: List<MultipartFile>,
+        @RequestParam("temp") temperature: Double = .7,
     ): ResponseEntity<String> {
-        val bytes = image.bytes
-        val base64 = Base64.getEncoder().encodeToString(bytes)
-        val dataUrl = "data:${image.contentType};base64,$base64"
+        val contentItems = mutableListOf<ChatMessageContentItem>(
+            ChatMessageTextContentItem(personaInstructions)
+        )
 
-        val textItem = ChatMessageTextContentItem(personaInstructions)
-        val imageItem = ChatMessageImageContentItem(ChatMessageImageUrl(dataUrl))
+        images.forEach { img ->
+            val base64 = Base64.getEncoder().encodeToString(img.bytes)
+            val dataUrl = "data:${img.contentType};base64,$base64"
 
-        val userMessage = ChatRequestUserMessage(listOf(textItem, imageItem))
+            contentItems += ChatMessageImageContentItem(ChatMessageImageUrl(dataUrl))
+        }
+
+        val userMessage = ChatRequestUserMessage(contentItems)
         val prompts = listOf<ChatRequestMessage>(userMessage)
 
         return responseEntityWithChatCompletion(prompts, temperature)
@@ -53,7 +69,7 @@ class OpenAIController(
 
     private fun responseEntityWithChatCompletion(
         prompts: List<ChatRequestMessage>,
-        temperature: Double
+        temperature: Double,
     ): ResponseEntity<String> {
         val options = ChatCompletionsOptions(prompts)
             .setMaxTokens(800)

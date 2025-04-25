@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ResourceLoader
 
-
 @Configuration
 class BackendConfig(
     @Value("\${spring.ai.azure.openai.endpoint}")
@@ -17,7 +16,6 @@ class BackendConfig(
 
     @Value("\${API_KEY}")
     private lateinit var apiKey: String
-
 
     @Bean
     fun chatModel(): OpenAIClient {
@@ -29,7 +27,7 @@ class BackendConfig(
 
     @Bean
     fun personaInstructions(resourceLoader: ResourceLoader): String {
-        return getResource(resourceLoader,"classpath:prompts/instructions.txt")
+        return getResource(resourceLoader, "classpath:prompts/instructions.txt")
     }
 
     @Bean

@@ -3,6 +3,8 @@ plugins {
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.4.3"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.0"
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 group = "com.hanankhan.ollamaai"
@@ -11,6 +13,13 @@ version = "0.0.1-SNAPSHOT"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint("0.50.0")
     }
 }
 
