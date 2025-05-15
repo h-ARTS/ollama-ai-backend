@@ -10,6 +10,7 @@ import com.azure.ai.openai.models.ChatRequestAssistantMessage
 import com.azure.ai.openai.models.ChatRequestMessage
 import com.azure.ai.openai.models.ChatRequestSystemMessage
 import com.azure.ai.openai.models.ChatRequestUserMessage
+import com.hanankhan.ollamaai.ollamaai.service.ImageGeneratorService
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -30,8 +31,8 @@ class OpenAIController(
     private val deploymentModel: String,
     private val personaInstructions: String,
     private val exampleText: String,
-    private val exampleImage: String,
     private val sampleAnswer: String,
+    private val imageGeneratorService: ImageGeneratorService
 ) {
     @PostMapping("/chat")
     fun generate(@RequestParam text: String, @RequestParam("temp") temperature: Double = .7): ResponseEntity<String> {
@@ -84,12 +85,22 @@ class OpenAIController(
 
             val parsed = extractMessageContent(chatCompletions.toJsonString())
             val cleaned = parsed.content.removePrefix("```json").removeSuffix("```").trim()
+            val responseBody = includeGeneratedProfileImage(cleaned)
 
-            ResponseEntity.ok(cleaned)
+            ResponseEntity.ok(responseBody)
         } catch (e: Exception) {
             println("Error: ${e.message}")
             ResponseEntity.internalServerError().body(e.message)
         }
+    }
+
+    private fun includeGeneratedProfileImage(rawResponse: String): String {
+        val json = JSONObject(rawResponse)
+        val base64ProfileImage = imageGeneratorService
+            .generateProfileImage("${json.getString("firstname")} ${json.getString("lastname")}")
+        json.put("profileImage", base64ProfileImage)
+
+        return json.toString()
     }
 }
 

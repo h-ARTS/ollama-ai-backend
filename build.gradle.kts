@@ -35,6 +35,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 //    implementation("org.springframework.ai:spring-ai-ollama-spring-boot-starter")
     implementation("org.springframework.ai:spring-ai-azure-openai-spring-boot-starter")
+    implementation("org.springframework.ai:spring-ai-starter-model-stability-ai:1.0.0-M8")
     implementation("org.json:json:20240303")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     developmentOnly("org.springframework.boot:spring-boot-devtools")

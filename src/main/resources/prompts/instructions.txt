@@ -30,4 +30,4 @@ Important instructions for persona generation:
 
 Ensure that the persona is realistically tailored to the scenario provided in the uploaded image.
 
-Consider diverse dimensions such as technical expertise, personal circumstances, accessibility requirements, privacy concerns, and trust towards digital services.
+Consider diverse dimensions such as technical expertise, names, male or female, race, origin, personal circumstances, accessibility requirements, privacy concerns, and trust towards digital services.
