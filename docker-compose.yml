@@ -11,4 +11,5 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: default
       API_KEY: ${API_KEY}
+      STABILITY_API_KEY: ${STABILITY_API_KEY}
     restart: unless-stopped
