@@ -35,7 +35,7 @@ class OpenAIController(
     private val imageGeneratorService: ImageGeneratorService
 ) {
     @PostMapping("/chat")
-    fun generate(@RequestParam text: String, @RequestParam("temp") temperature: Double = .7): ResponseEntity<String> {
+    fun generate(@RequestParam text: String): ResponseEntity<String> {
         val prompts = listOf<ChatRequestMessage>(
             ChatRequestSystemMessage(personaInstructions),
             ChatRequestUserMessage(exampleText),
@@ -43,14 +43,11 @@ class OpenAIController(
             ChatRequestUserMessage(text),
         )
 
-        return responseEntityWithChatCompletion(prompts, temperature)
+        return responseEntityWithChatCompletion(prompts)
     }
 
     @PostMapping(path = ["/vision"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    fun generateWithImage(
-        @RequestPart images: List<MultipartFile>,
-        @RequestParam("temp") temperature: Double = .7,
-    ): ResponseEntity<String> {
+    fun generateWithImage(@RequestPart images: List<MultipartFile>): ResponseEntity<String> {
         val contentItems = mutableListOf<ChatMessageContentItem>(
             ChatMessageTextContentItem(personaInstructions)
         )
@@ -65,16 +62,13 @@ class OpenAIController(
         val userMessage = ChatRequestUserMessage(contentItems)
         val prompts = listOf<ChatRequestMessage>(userMessage)
 
-        return responseEntityWithChatCompletion(prompts, temperature)
+        return responseEntityWithChatCompletion(prompts)
     }
 
-    private fun responseEntityWithChatCompletion(
-        prompts: List<ChatRequestMessage>,
-        temperature: Double,
-    ): ResponseEntity<String> {
+    private fun responseEntityWithChatCompletion(prompts: List<ChatRequestMessage>): ResponseEntity<String> {
         val options = ChatCompletionsOptions(prompts)
             .setMaxTokens(800)
-            .setTemperature(temperature)
+            .setTemperature(1.0)
             .setTopP(0.95)
             .setFrequencyPenalty(0.0)
             .setPresencePenalty(0.0)
@@ -86,7 +80,7 @@ class OpenAIController(
             val parsed = extractMessageContent(chatCompletions.toJsonString())
             val cleaned = parsed.content.removePrefix("```json").removeSuffix("```").trim()
             val responseBody = includeGeneratedProfileImage(cleaned)
-
+//            val responseBody = cleaned
             ResponseEntity.ok(responseBody)
         } catch (e: Exception) {
             println("Error: ${e.message}")
